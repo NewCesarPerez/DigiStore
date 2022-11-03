@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="../public/css/client.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Log - in</title>
+</head>
+<body>
+    <section class="vh-100">
+        <h1 class="d-flex justify-content-center text-primary my-5">First time?</h1>
+        <div class="container-fluid h-custom">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            
+                <!-- Email input -->
+                <form id="singupForm" action="/usuario/signup" method="post">
+                    <div class="form-outline mb-4">
+                        <input type="text" id="firstNameId" name="firstName" class="form-control form-control-lg"
+                          placeholder="First name" />
+                        <label class="form-label text-primary" for="firstNameId">First name</label>
+                        <input type="text" id="lastNameId" name="lastName" class="form-control form-control-lg"
+                          placeholder="Last name" />
+                        <label class="form-label text-primary" for="lastNameId">Last name</label>
+                        <input type="email" id="emailInputId" name="email" class="form-control form-control-lg"
+                          placeholder="Enter a valid email address" />
+                        <label class="form-label text-primary" for="emailInputId">Email address</label>
+                        <input type="text" id="addressInputId" name="address" class="form-control form-control-lg"
+                          placeholder="Enter your home address" />
+                        <label class="form-label text-primary" for="addressInputId"><i class="fa fa-home" aria-hidden="true"></i> Address</label>
+                        <input type="text" id="ageInputId" name="age" class="form-control form-control-lg"
+                          placeholder="Age" />
+                        <label class="form-label text-primary" for="ageInputId"><i class="fa fa-home" aria-hidden="true"></i> <i class="fa fa-angellist" aria-hidden="true"></i>Age</label>
+                        <input type="text" id="userNameId" name="username" class="form-control form-control-lg"
+                          placeholder="Username" />
+                        <label class="form-label text-primary" for="userNameId">UserName</label>
+                        <input type="password" id="passwordId" name="password" class="form-control form-control-lg"
+                          placeholder="Password" />
+                        <label class="form-label text-primary" for="userNameId">Password</label>
+                        <input type="tel" id="telId" name="telephone" class="form-control form-control-lg"
+                        placeholder="Telephone" />
+                      <label class="form-label text-primary" for="telId">Telephone number</label>
+
+                        <input type="url" id="avatarId" name="avatar" class="form-control form-control-lg"
+                          placeholder="Avatar url" />
+                        <label class="form-label text-primary" for="userNameId">Avatar</label>
+                      </div>
+                      <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lgmb-5"
+                          style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                          <div class="text-center">
+                            <p>Already a member? <a href="/usuario/login">Log-in</a></p>
+                            
+                          </div>
+                      </div>
+                </form>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div
+          class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between my-2 py-4 px-4 px-xl-5 bg-primary">
+        
+          <!-- Right -->
+        </div>
+      </section>
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      
+    </body>
+</html>
