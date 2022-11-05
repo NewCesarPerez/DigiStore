@@ -14,6 +14,7 @@ import loginStrategy from "./strategies/loginStrategy.js";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import userService from "./services/user.service.js";
+import cors from "cors"
 
 
 const isCluster = config.modo === "CLUSTER";
@@ -80,7 +81,8 @@ if (isCluster && cluster.isPrimary) {
       const user = await userService.getUserById(id);
     done(null, user);
   });
-  
+
+  app.use(cors()) 
   app.use("/", rutas);
   app.get("*", getNotImplementedRoute);
   app.listen(config.port, (error) => {

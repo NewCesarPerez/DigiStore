@@ -42,7 +42,7 @@ router.use('/api/productos', checkAuth, rutasApiProductos)
 router.use('/api/carrito', checkAuth, rutasCarrito)
 
 //router usuario
-router.use("/usuario",rutasUsuarios)
+router.use("/usuario",rutasUsuariosApi)
 
 
 export default router;

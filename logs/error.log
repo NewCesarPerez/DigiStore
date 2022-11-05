@@ -529,3 +529,14 @@
     at next (C:\Users\abogc\OneDrive\Desktop\Backend\Desafio_Capas\node_modules\express\lib\router\index.js:280:10)
     at methodOverride (C:\Users\abogc\OneDrive\Desktop\Backend\Desafio_Capas\node_modules\method-override\index.js:79:5)
     at Layer.handle [as handle_request] (C:\Users\abogc\OneDrive\Desktop\Backend\Desafio_Capas\node_modules\express\lib\router\layer.js:95:5)
+[2022-11-04T16:28:21.481] [ERROR] archivoError - ReferenceError: userServices is not defined
+    at postApiLogin (file:///C:/Users/abogc/OneDrive/Desktop/Backend/ProyectoFinal_DigiStore/src/controllers/userController.js:49:29)
+    at Layer.handle [as handle_request] (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\express\lib\router\route.js:144:13)
+    at complete (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\middleware\authenticate.js:271:13)
+    at C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\middleware\authenticate.js:278:15
+    at pass (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\authenticator.js:428:14)
+    at Authenticator.transformAuthInfo (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\authenticator.js:450:5)
+    at C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\middleware\authenticate.js:275:22
+    at C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\http\request.js:41:7
+    at C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\passport\lib\sessionmanager.js:51:9

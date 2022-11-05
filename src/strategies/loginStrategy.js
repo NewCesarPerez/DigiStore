@@ -17,8 +17,8 @@ const loginStrategy = new passportLocal.Strategy(
       const userToCompare = await userServices.getUser({username});
       
       //const userToCompare= await user.findOne({username})
-      console.log(username)
-      console.log(userToCompare.firstName)
+      console.log('Username desde login strategy: '+username)
+      console.log('User desde login strategy: '+req.user)
 
       if (
         !userToCompare ||
