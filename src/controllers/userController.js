@@ -1,5 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
+import userService from "../services/user.service.js";
 import configJS from "../config/config.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,15 +41,18 @@ export function postLogin(req, res) {
     }
   }
 
-  export function postApiLogin(req,res){
+  export async function postApiLogin  (req,res){
     try{
       loggerConsola.info(
         `Petición recibida para el endpoint: /login, método: POST`
       );
       
-     
+      const userToCompare = await userService.getUser({
+        username: req.user.username,
+      });
       loggerConsola.info('desde el login' + req.user)
-      res.json({status:200, existence:true})
+      if(userToCompare.admin) res.json({ status: 200, existence: true, admin:true });
+    else res.json({ status: 200, existence: true, admin:false });
     }catch(error){
       loggerConsola.error(error);
       loggerErrorFile.error(error);
