@@ -8,6 +8,7 @@ import {
   getLogout,
   getFailSignUp,
   postLogin,
+  postApiLogin,
   postSignup,
 } from "../controllers/userController.js";
 const router = Router();
@@ -17,7 +18,7 @@ router.get("/login", getLogIn);
 router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "/usuario/faillogin" }),
-  postLogin
+  postApiLogin
 );
 router.get("/signup", getSignup);
 router.post(

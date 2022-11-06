@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 
 export const getProducts = async (req, res) => {
   try {
+    console.log('isauth desde product controller' + req.user)
     const productos = await productServices.getProducts();
 
     res.json(productos);

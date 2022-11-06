@@ -1,3 +1,4 @@
+ 
  export default async (req, res, next) =>{
     console.log('desde el checkouth '+req.isAuthenticated());
   if (req.isAuthenticated()) {

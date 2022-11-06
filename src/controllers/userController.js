@@ -43,7 +43,7 @@ export async function postApiLogin(req, res) {
     });
 
     
-    loggerConsola.info("desde el login" + req.user);
+    loggerConsola.info("desde el postapilogin" + req.user);
     if(userToCompare.admin) res.json({ status: 200, existence: true, admin:true });
     else res.json({ status: 200, existence: true, admin:false });
   } catch (error) {

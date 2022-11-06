@@ -64,6 +64,8 @@ if (isCluster && cluster.isPrimary) {
       rolling: true,
       saveUninitialized: false,
       cookie: {
+        httpOnly:false,
+        secure:false,
         maxAge: 120000,
       },
     })
@@ -71,8 +73,6 @@ if (isCluster && cluster.isPrimary) {
   conectarDB();
   app.use(passport.initialize());
   app.use(passport.session());
-  passport.use("register", signupStrategy);
-  passport.use("login", loginStrategy);
   passport.serializeUser(function (user, done) {
     done(null, user.id);
   });
@@ -81,8 +81,15 @@ if (isCluster && cluster.isPrimary) {
       const user = await userService.getUserById(id);
     done(null, user);
   });
-
-  app.use(cors()) 
+  passport.use("register", signupStrategy);
+  passport.use("login", loginStrategy);
+  
+  
+  app.use(cors({
+    origin:'http://127.0.0.1:5500',
+    credentials:true
+  })) 
+  
   app.use("/", rutas);
   app.get("*", getNotImplementedRoute);
   app.listen(config.port, (error) => {

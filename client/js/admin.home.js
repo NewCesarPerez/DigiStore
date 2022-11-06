@@ -10,4 +10,4 @@ const fetchProducts=async ()=>{
 const renderProducts=()=>{
 
 }
-fetchProducts()
+//fetchProducts()

@@ -14,11 +14,8 @@ const loginStrategy = new passportLocal.Strategy(
   { passReqToCallback: true },
   async (req, username, password, done) => {
     try {
-      const userToCompare = await userServices.getUser({username});
       
-      //const userToCompare= await user.findOne({username})
-      console.log('Username desde login strategy: '+username)
-      console.log('User desde login strategy: '+req.user)
+      const userToCompare = await userServices.getUser({username});
 
       if (
         !userToCompare ||
@@ -30,8 +27,11 @@ const loginStrategy = new passportLocal.Strategy(
     } catch (err) {
       console.log(err);
       done(err, null);
+    }finally{
+      console.log('auth deesde loginstr'+req.isAuthenticated())
     }
   }
+  
 );
 
 export default loginStrategy;
