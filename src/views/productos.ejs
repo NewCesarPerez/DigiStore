@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <h1 class="d-flex justify-content-center my-5">Listo para comprar?</h1>
+    <h1 class="d-flex justify-content-center my-5"> <%=username%>, Listo para comprar?</h1>
 <% if (hasAny) { %>
     <div class="d-flex justify-content-center flex-wrap w-75 m-auto mt-5" >
     <% productos.forEach(producto => { %>
@@ -30,7 +30,7 @@
             </div>
           </div>
   
-    <% }) %>>
+    <% }) %>
 </div>
     <% } else { %>
     

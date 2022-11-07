@@ -4,20 +4,11 @@ import { fileURLToPath } from "url";
 import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";
 import config from "../config/config.js";
 import userService from "../services/user.service.js";
-
+import axios from "axios";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-export function getSignup(req, res) {
-  try {
-    loggerConsola.info(
-      `Petición recibida para el endpoint: /signup, método: GET`
-    );
-    res.sendFile(path.join(__dirname, "../views/signup.html"));
-  } catch (error) {
-    loggerConsola.error(error);
-    loggerErrorFile.error(error);
-  }
-}
+
+
 
 export function postLogin(req, res) {
   try {
@@ -26,24 +17,8 @@ export function postLogin(req, res) {
     );
 
     loggerConsola.info("desde el login" + req.user);
-    res.redirect("/home");
-  } catch (error) {
-    loggerConsola.error(error);
-    loggerErrorFile.error(error);
-  }
-}
-
-export async function postApiLogin(req, res) {
-  try {
-    const userToCompare=await userService.getUser({username:req.user.username})
-    
-    loggerConsola.info(
-      `Petición recibida para el endpoint: /login, método: POST`
-    );
-
-    loggerConsola.info("desde el login" + req.user);
-    if(userToCompare.admin) res.json({ status: 200, existence: true, admin:true  });
-    else res.json({ status: 200, existence: true, admin:false  });
+    if(req.user.admin) res.redirect("/home");
+    else res.redirect("/productos")
   } catch (error) {
     loggerConsola.error(error);
     loggerErrorFile.error(error);
@@ -63,13 +38,28 @@ export function postSignup(req, res) {
     loggerErrorFile.error(error);
   }
 }
+export async function getHome(req, res){
+  const response=await axios.post('http://localhost:3000/usuario/login')
+  console.log(response)
 
+}
+export function getSignup(req, res) {
+  try {
+    loggerConsola.info(
+      `Petición recibida para el endpoint: /signup, método: GET`
+    );
+    res.render("signup.ejs");
+  } catch (error) {
+    loggerConsola.error(error);
+    loggerErrorFile.error(error);
+  }
+}
 export function getFailSignUp(req, res) {
   try {
     loggerConsola.info(
       `Petición recibida para el endpoint: /failsignup, método: GET`
     );
-    res.sendFile(path.join(__dirname, "../views/failsignup.html"));
+    res.render('failsignup.ejs')
   } catch (error) {
     loggerConsola.error(error);
     loggerErrorFile.error(error);
@@ -80,7 +70,8 @@ export function getFailLogin(req, res) {
     loggerConsola.info(
       `Petición recibida para el endpoint: /faillogin, método: GET`
     );
-    res.sendFile(path.join(__dirname, "../views/faillogin.html"));
+    
+    res.render("faillogin.ejs")
   } catch (error) {
     loggerConsola.error(error);
     loggerErrorFile.error(error);

@@ -5,7 +5,7 @@ import rutasProductos from "./product.route.js"
 import rutasApiProductos from "./product.api.route.js"
 import rutasCarrito from "./carrito.api.route.js"
 import rutasUsuarios from "./user.route.js"
-import rutasUsuariosApi from "./user.api.route.js"
+
 import {
   getInfo,
   getData,

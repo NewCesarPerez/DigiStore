@@ -22,6 +22,7 @@ export const getProductsView = async (req, res) => {
   try {
     const productos = await productServices.getProducts();
     res.render("productos.ejs", {
+      username: req.user.firstName,
       productos: productos,
       hasAny: productos.length,
     });
