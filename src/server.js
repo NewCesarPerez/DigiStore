@@ -64,9 +64,10 @@ if (isCluster && cluster.isPrimary) {
       rolling: true,
       saveUninitialized: false,
       cookie: {
-        httpOnly:false,
-        secure:false,
+        
+        secure:true,
         maxAge: 120000,
+        sameSite:'none'
       },
     })
   );
@@ -86,8 +87,10 @@ if (isCluster && cluster.isPrimary) {
   
   
   app.use(cors({
+    
     origin:'http://127.0.0.1:5500',
-    credentials:true
+    credentials:true,
+    
   })) 
   
   app.use("/", rutas);
