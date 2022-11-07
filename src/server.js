@@ -58,13 +58,13 @@ if (isCluster && cluster.isPrimary) {
       store: MongoStore.create({
         mongoUrl: config.mongodb.URI,
       }),
-
+      
       secret: config.session.SECRET,
       resave: false,
       rolling: true,
       saveUninitialized: false,
       cookie: {
-        
+        httpOnly:false,
         secure:true,
         maxAge: 120000,
         sameSite:'none'
@@ -85,7 +85,7 @@ if (isCluster && cluster.isPrimary) {
   passport.use("register", signupStrategy);
   passport.use("login", loginStrategy);
   
-  
+  app.set('trust proxy', 1)
   app.use(cors({
     
     origin:'http://127.0.0.1:5500',
