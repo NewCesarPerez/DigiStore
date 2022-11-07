@@ -17,7 +17,8 @@ export function getSignup(req, res) {
       loggerConsola.info(
         `Petición recibida para el endpoint: /signup, método: GET`
       );
-      res.sendFile(path.join(__dirname, "../views/signup.html"));
+      //res.sendFile(path.join(__dirname, "../views/signup.html"));
+      res.render('login.ejs')
     } catch (error) {
       loggerConsola.error(error);
       loggerErrorFile.error(error);
