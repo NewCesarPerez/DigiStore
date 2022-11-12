@@ -9,6 +9,7 @@ import { loggerConsola } from "../loggerConfig.js";
 import userServices from "../services/user.service.js";
 import NodeMailerClass from "../services/nodeMailer.class.js";
 import NodeMailerTemplatesClass from "../utils/nodemailer.templates.js";
+import { type } from "os";
 
 //STRATEGY
 function hashPassword(password) {
@@ -16,11 +17,11 @@ function hashPassword(password) {
 }
 const signupStrategy = new passportLocal.Strategy(
   { passReqToCallback: true },
-  async (req, username, password, done) => {
+  async (req,username, password, done) => {
     try {
       const existingUser = await userServices.getUser({ username: username });
       if (existingUser) done(null, false);
-
+      console.log(typeof password)
       const newUser = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -33,24 +34,25 @@ const signupStrategy = new passportLocal.Strategy(
         telephone: req.body.telephone,
         avatar: req.body.avatar,
       };
-
+        
       //NODEMAILER
-      const nodeMailer = new NodeMailerClass(
-        "Servidor node.js",
-        config.ethereal.EMAIL,
-        "Nuevo registro",
-        NodeMailerTemplatesClass.getUserRegTemplate(newUser)
-      );
-      const createdUser = await userServices.createUser(newUser);
-      console.log("Ethereal email: " + config.ethereal.EMAIL);
-      const info = await nodeMailer.sendEmail();
+      // const nodeMailer = new NodeMailerClass(
+      //   "Servidor node.js",
+      //   config.ethereal.EMAIL,
+      //   "Nuevo registro",
+      //   NodeMailerTemplatesClass.getUserRegTemplate(newUser)
+      // );
+      
+      // console.log("Ethereal email: " + config.ethereal.EMAIL);
+      // const info = await nodeMailer.sendEmail();
       
 
-      loggerConsola.info(info);
+      //loggerConsola.info(info);
+      const createdUser = await userServices.createUser(newUser);
       return done(null, createdUser);
     } catch (err) {
       console.log(err);
-      done(err);
+      return done(err, null);
     }
   }
 );
