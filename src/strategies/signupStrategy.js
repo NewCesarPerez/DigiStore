@@ -36,18 +36,18 @@ const signupStrategy = new passportLocal.Strategy(
       };
         
       //NODEMAILER
-      // const nodeMailer = new NodeMailerClass(
-      //   "Servidor node.js",
-      //   config.ethereal.EMAIL,
-      //   "Nuevo registro",
-      //   NodeMailerTemplatesClass.getUserRegTemplate(newUser)
-      // );
+      const nodeMailer = new NodeMailerClass(
+        "Servidor node.js",
+        config.ethereal.EMAIL,
+        "Nuevo registro",
+        NodeMailerTemplatesClass.getUserRegTemplate(newUser)
+      );
       
-      // console.log("Ethereal email: " + config.ethereal.EMAIL);
-      // const info = await nodeMailer.sendEmail();
+      console.log("Ethereal email: " + config.ethereal.EMAIL);
+      const info = await nodeMailer.sendEmail();
       
 
-      //loggerConsola.info(info);
+      loggerConsola.info(info);
       const createdUser = await userServices.createUser(newUser);
       return done(null, createdUser);
     } catch (err) {
