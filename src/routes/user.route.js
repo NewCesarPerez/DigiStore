@@ -1,6 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
-
+import passwordVerifier from "../middlewares/passwordVerifier.js";
 import {
   getFailLogin,
   getSignup,
@@ -21,7 +21,7 @@ router.post(
 );
 router.get("/signup", getSignup);
 router.post(
-  "/signup",
+  "/signup", passwordVerifier,
   passport.authenticate("register", { failureRedirect: "/usuario/failsignup" }),
   postSignup
 );
