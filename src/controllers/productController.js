@@ -49,11 +49,22 @@ export const getProductsById = async (req, res) => {
   try {
     const idToCompare = req.params.id;
     const productToRender = await productServices.getProductsById(idToCompare);
-    if (!productToRender) res.json({ error: "Producto no encontrado" });
+    if (!productToRender) res.json({ error: "id no encontrado" });
     else res.json(productToRender);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Ha ocurrido un error" });
+    res.status(500).json({ message: error });
+  }
+};
+
+export const getProductsByCatategory = async (req, res) => {
+  try {
+    const catToCompare = req.params.category;
+    console.log('categoria: '+catToCompare)
+    const productToRender = await productServices.getProductsByCategory(catToCompare);
+    if (!productToRender) res.status(500).json({ error: "Categoria no encontrada" });
+    else res.status(200).json(productToRender);
+  } catch (err) {
+    res.status(500).json({ message: error });
   }
 };
 

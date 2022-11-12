@@ -14,6 +14,11 @@ class ProductServices {
     const data = await this.dao.readById(idToCompare);
     return data;
   }
+  async getProductsByCategory(category){
+    console.log('categoria: '+category)
+    const data =await this.dao.findProductsByCat(category)
+    return data
+  }
   async postProducts(products) {
     const data = await this.dao.create(products);
     return data;

@@ -1,6 +1,7 @@
 const productModelSchema={
     timestamp: { type: String, required: true, default:Date.now() },
     nombre: { type: String, required: true },
+    resolucion:{type: String, required: false},
     descripcion: { type: String, required: true },
     codigo: { type: String, required: true },
     precio: { type: Number, required: true },

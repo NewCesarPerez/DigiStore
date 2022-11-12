@@ -31,8 +31,11 @@ export class ContenedorMongo {
           $set: obj,
         }
       );
-      const updatedProduct = await this.coleccion.findOne({ _id: id }, { __v: 0 });
-      return updatedProduct
+      const updatedProduct = await this.coleccion.findOne(
+        { _id: id },
+        { __v: 0 }
+      );
+      return updatedProduct;
     } catch (error) {
       console.log(`Saving error: ${error}`);
       throw error;
@@ -56,6 +59,12 @@ export class ContenedorMongo {
     }
   }
 
+  async findProductsByCat(category) {
+    const data = await this.coleccion.find({resolucion:category});
+    if (data === undefined) return null;
+    else return data;
+  }
+
   async findUser(username) {
     try {
       const data = await this.coleccion.findOne(username, { __v: 0 });
@@ -75,8 +84,6 @@ export class ContenedorMongo {
     }
   }
 
-
-
   async readAll() {
     try {
       const data = await this.coleccion.find({}, { __v: 0 });
@@ -88,8 +95,7 @@ export class ContenedorMongo {
   }
   async deleteById(number) {
     try {
-     await this.coleccion.deleteOne({ _id: number });
-    
+      await this.coleccion.deleteOne({ _id: number });
     } catch (error) {
       console.log(error);
     }
