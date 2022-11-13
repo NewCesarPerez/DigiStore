@@ -1,19 +1,17 @@
 import { Router } from "express";
 import {
-    postCarrito,
     postProductInCartById,
-    deleteCarritoById,
-    getCarrito,
     deleteProductFromCartById,
+    getCarrito,
     getCarritoByUserId,
   } from "../controllers/carritoController.js";
+import checkAuth from "../middlewares/checkAuth.js";
 const router = Router();
 
-router.get("/:id", getCarrito);
+router.get("/:id_cart", getCarrito);
 router.get("/user/:id", getCarritoByUserId)
-router.post("/", postCarrito);
-router.post("/:id/productos/:id_prod", postProductInCartById);
-router.delete("/:id", deleteCarritoById);
-router.delete("/:id/productos/:id_prod", deleteProductFromCartById);
+//router.post("/", postCarrito);
+router.post("/:id_prod/producto/", postProductInCartById);
+router.delete("/:id_prod/producto/", deleteProductFromCartById);
 
 export default router;
