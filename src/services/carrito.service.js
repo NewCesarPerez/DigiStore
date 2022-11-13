@@ -1,34 +1,39 @@
 //import { CarritoDao } from "../daos/index.js";
 import DaoFactory from "../daos/factory/dao.factory.js";
 const productDao = DaoFactory.getProductDao();
+const carritoDao = DaoFactory.getCarritoDao()
 class CartServices {
   constructor(carritoDao) {
     this.dao = carritoDao;
   }
 
-  async createCart(cart) {
-    const data = await CarritoDao.create(cart);
+  async createCart(userId) {
+    const cart={
+      productos:[],
+      userId:userId
+    }
+    const data = await this.dao.create(cart);
     return data;
   }
 
   async getAllCarts() {
-    const data = await CarritoDao.readAll();
+    const data = await this.dao.readAll();
     return data;
   }
   async getCartsById(id) {
-    const data = await CarritoDao.readById(id);
+    const data = await this.dao.readById(id);
     return data;
   }
   async addProductToCart(cartId, idProduct) {
     const productById = await productDao.readById(idProduct);
-    const cartById = await CarritoDao.readById(cartId);
+    const cartById = await this.dao.readById(cartId);
 
-    const cart = await CarritoDao.readAll();
+    const cart = await this.dao.readAll();
 
     const index = cart.findIndex((element) => element.id === cartById.id);
     cartById.productos.push(productById);
 
-    await carritoDao.update(cartById.id, cartById);
+    await this.dao.update(cartById.id, cartById);
 
     const cartByIdUpdated = await cartServices.getCartsById(cartIdToUse);
 
@@ -47,13 +52,13 @@ class CartServices {
 
 
   async updateCartById(idToRetrieve, info) {
-    const data = await CarritoDao.update(idToRetrieve, info);
+    const data = await this.dao.update(idToRetrieve, info);
     return data;
   }
   async deleteCartById(id) {
-    const data = await CarritoDao.deleteById(id);
+    const data = await this.dao.deleteById(id);
   }
 }
 
-//export default new CartServices(CarritoDao)
-export default new CartServices(DaoFactory.getUserDao());
+export default new CartServices(carritoDao)
+//export default new CartServices(DaoFactory.getUserDao());
