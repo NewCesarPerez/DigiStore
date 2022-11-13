@@ -10,6 +10,7 @@ import userServices from "../services/user.service.js";
 import NodeMailerClass from "../services/nodeMailer.class.js";
 import NodeMailerTemplatesClass from "../utils/nodemailer.templates.js";
 import { type } from "os";
+import carritoService from "../services/carrito.service.js";
 
 //STRATEGY
 function hashPassword(password) {
@@ -36,19 +37,21 @@ const signupStrategy = new passportLocal.Strategy(
       };
         
       //NODEMAILER
-      // const nodeMailer = new NodeMailerClass(
-      //   "Servidor node.js",
-      //   config.ethereal.EMAIL,
-      //   "Nuevo registro",
-      //   NodeMailerTemplatesClass.getUserRegTemplate(newUser)
-      // );
+      const nodeMailer = new NodeMailerClass(
+        "Servidor node.js",
+        config.ethereal.EMAIL,
+        "Nuevo registro",
+        NodeMailerTemplatesClass.getUserRegTemplate(newUser)
+      );
       
-      // console.log("Ethereal email: " + config.ethereal.EMAIL);
-      // const info = await nodeMailer.sendEmail();
+      console.log("Ethereal email: " + config.ethereal.EMAIL);
+      const info = await nodeMailer.sendEmail();
       
 
-      //loggerConsola.info(info);
+      loggerConsola.info(info);
       const createdUser = await userServices.createUser(newUser);
+      console.log('user id: '+createdUser.id)
+      const creatCart= await carritoService.createCart(createdUser.id)
       return done(null, createdUser);
     } catch (err) {
       console.log(err);

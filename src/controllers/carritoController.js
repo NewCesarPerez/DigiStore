@@ -2,7 +2,7 @@ import cartServices from "../services/carrito.service.js";
 import config from "../config/config.js";
 import { createTransport } from "nodemailer";
 import twilio from "twilio";
-import { loggerConsola } from "../loggerConfig.js";
+import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";
 import NodeMailerClass from "../services/nodeMailer.class.js";
 
 //NODEMAILER
@@ -33,7 +33,7 @@ export const postCarrito = async (req, res) => {
     };
     const smsMessage = await client.messages.create(options);
     //TWILIO - Email
-    
+
     let emailBody;
     cart.productos.map((product) => {
       return (emailBody += `
@@ -41,8 +41,13 @@ export const postCarrito = async (req, res) => {
       <p class= "text-primary">Codigo: ${product.codigo} </p> 
       <p class= "text-primary">Precio: ${product.precio}</p>`);
     });
-    const nodeMailer=new NodeMailerClass("Servidor node.js",config.ethereal.EMAIL,`Nuevo Pedido - Cliente: ${req.user.firstName} ${req.user.lastName}, Email: ${req.user.email} `,emailBody)
-    const info=nodeMailer.sendEmail()
+    const nodeMailer = new NodeMailerClass(
+      "Servidor node.js",
+      config.ethereal.EMAIL,
+      `Nuevo Pedido - Cliente: ${req.user.firstName} ${req.user.lastName}, Email: ${req.user.email} `,
+      emailBody
+    );
+    const info = nodeMailer.sendEmail();
     // const mailOptions = {
     //   from: "Servidor node.js",
     //   to: config.ethereal.EMAIL,
@@ -84,6 +89,35 @@ export const postCarrito = async (req, res) => {
   }
 };
 
+export const getCarrito = async (req, res) => {
+  try {
+    const idToCompare = req.params.id;
+    const carritoToRender = await cartServices.getCartByCartId(idToCompare);
+    if (!carritoToRender)
+      res.status(500).json({ error: "Carrito no encontrado" });
+    else {
+      res.json(carritoToRender.productos);
+    }
+  } catch (error) {
+    loggerErrorFile(error);
+    res.status(500).json({ message: "Hubo un error :" + error });
+  }
+};
+export const getCarritoByUserId = async (req, res) => {
+  try {
+    const idToCompare = req.params.id;
+    console.log(typeof idToCompare)
+    const carritoToRender = await cartServices.getCartbyUserId(idToCompare);
+    if (!carritoToRender)
+      res.status(500).json({ error: "Carrito no encontrado" });
+    else {
+      res.json(carritoToRender.productos);
+    }
+  } catch (error) {
+    loggerErrorFile(error);
+    res.status(500).json({ message: "Hubo un error :" + error });
+  }
+};
 
 export const postProductInCartById = async (req, res) => {
   const idProductToCompare = req.body.id;
@@ -105,22 +139,6 @@ export const postProductInCartById = async (req, res) => {
     res.status(500).json({ message: "Ha ocurrido un error" });
   }
 };
-
-export const getCarrito = async (req, res) => {
-  try {
-    const idToCompare = req.params.id;
-    const carritoToRender = await cartServices.getCartsById(idToCompare);
-    if (!carritoToRender)
-      res.status(500).json({ error: "Carrito no encontrado" });
-    else {
-      res.json(carritoToRender.productos);
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Hubo un error" });
-  }
-};
-
 export const deleteCarritoById = async (req, res) => {
   try {
     const idToCompare = req.params.id;

@@ -1,5 +1,6 @@
 import config from "../config/config.js";
 import mongoose from "mongoose";
+import { loggerErrorFile } from "../loggerConfig.js";
 
 await mongoose.connect(config.mongodb.URI);
 export class ContenedorMongo {
@@ -17,7 +18,7 @@ export class ContenedorMongo {
         return inserted;
       }
     } catch (error) {
-      console.log(`Saving error: ${error}`);
+      loggerErrorFile(`Saving error: ${error}`);
       throw error;
     }
   }
@@ -37,7 +38,7 @@ export class ContenedorMongo {
       );
       return updatedProduct;
     } catch (error) {
-      console.log(`Saving error: ${error}`);
+      loggerErrorFile(`Saving error: ${error}`);
       throw error;
     }
   }
@@ -46,7 +47,7 @@ export class ContenedorMongo {
     try {
       await this.coleccion.deleteMany({});
     } catch (error) {
-      console.log(error);
+      loggerErrorFile(error);
     }
   }
   async readById(number) {
@@ -55,7 +56,17 @@ export class ContenedorMongo {
       if (data === undefined) return null;
       else return data;
     } catch (error) {
-      console.log(error);
+      loggerErrorFile(error);
+    }
+  }
+
+  async readCartByUserId(id){
+    try{
+      const data = await this.coleccion.findOne({ userId: id }, { __v: 0 });
+      if (data === undefined) return null;
+      else return data;
+    }catch(error){
+      loggerErrorFile(error)
     }
   }
 
@@ -71,7 +82,7 @@ export class ContenedorMongo {
       if (data === undefined) return null;
       else return data;
     } catch (error) {
-      console.log(error);
+      loggerErrorFile(error);
     }
   }
   async findUserById(id) {
@@ -80,7 +91,7 @@ export class ContenedorMongo {
       if (data === undefined) return null;
       else return data;
     } catch (error) {
-      console.log(error);
+      loggerErrorFile(error);
     }
   }
 
@@ -90,14 +101,14 @@ export class ContenedorMongo {
       if (data === undefined) return null;
       else return data;
     } catch (error) {
-      console.log(error);
+      loggerErrorFile(error);
     }
   }
   async deleteById(number) {
     try {
       await this.coleccion.deleteOne({ _id: number });
     } catch (error) {
-      console.log(error);
+      loggerErrorFile(error);
     }
   }
 }

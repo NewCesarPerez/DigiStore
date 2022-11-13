@@ -20,9 +20,13 @@ class CartServices {
     const data = await this.dao.readAll();
     return data;
   }
-  async getCartsById(id) {
+  async getCartByCartId(id) {
     const data = await this.dao.readById(id);
     return data;
+  }
+  async getCartbyUserId(userId){
+    const data = await this.dao.readCartByUserId(userId)
+    return data
   }
   async addProductToCart(cartId, idProduct) {
     const productById = await productDao.readById(idProduct);
