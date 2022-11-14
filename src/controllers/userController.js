@@ -40,7 +40,7 @@ export function postSignup(req, res) {
 }
 export async function getHome(req, res){
   const response=await axios.post('http://localhost:3000/usuario/login')
-  console.log(response)
+  
 
 }
 export function getSignup(req, res) {
@@ -79,7 +79,7 @@ export function getFailLogin(req, res) {
 }
 export function getLogIn(req, res) {
   try {
-    console.log(config.ethereal.EMAIL);
+    
     loggerConsola.info(
       `Petición recibida para el endpoint: /login, método: GET`
     );

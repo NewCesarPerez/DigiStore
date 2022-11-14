@@ -4,7 +4,7 @@ import { loggerConsola, loggerWarnFile, loggerErrorFile } from "../loggerConfig.
 const cpus = os.cpus();
 
 export function redirectFromRoot(req, res) {
-  console.log('Entrando al redirect')
+  
     if (req.isAuthenticated()) {
       res.redirect("/home");
     } else {
@@ -49,14 +49,14 @@ export function redirectFromRoot(req, res) {
         ExecPath: process.execPath,
         ProjectFolder: process.cwd(),
       };
-      console.log(JSON.stringify(OperativeInfo))
+      
       loggerConsola.info(
         `Petición recibida para el endpoint: /info, método: GET`
       );
       
       res.status(200).render("info.ejs", OperativeInfo);
     }catch(error){
-      console.log('entrando al catch')
+     
       loggerConsola.error(error);
       loggerErrorFile.error(error);
     }

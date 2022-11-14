@@ -39,7 +39,7 @@ router.use('/productos',checkAuth, rutasProductos)
 router.use('/api/productos', checkAuth, rutasApiProductos)
 
 //router api/carrito
-router.use('/api/carrito', rutasCarrito)
+router.use('/api/carrito', checkAuth, rutasCarrito)
 
 //router usuario
 router.use("/usuario",rutasUsuarios)

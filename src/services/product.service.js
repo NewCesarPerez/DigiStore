@@ -15,7 +15,7 @@ class ProductServices {
     return data;
   }
   async getProductsByCategory(category){
-    console.log('categoria: '+category)
+   
     const data =await this.dao.findProductsByCat(category)
     return data
   }

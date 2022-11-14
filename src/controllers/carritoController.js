@@ -2,9 +2,9 @@ import cartServices from "../services/carrito.service.js";
 import config from "../config/config.js";
 import { createTransport } from "nodemailer";
 import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";
-import NodeMailerClass from "../services/nodeMailer.class.js";
+
 import userServices from "../services/user.service.js";
-import orderServices from "../services/order.service.js"
+import orderServices from "../services/order.service.js";
 //NODEMAILER
 const trasporter = createTransport({
   host: "smtp.ethereal.email",
@@ -20,28 +20,13 @@ export const postCarrito = async (req, res) => {
   try {
     const cart = req.body;
 
-    let emailBody;
-    cart.productos.map((product) => {
-      return (emailBody += `
-      <p class= "text-primary" >Nombre: ${product.nombre}  </p>    
-      <p class= "text-primary">Codigo: ${product.codigo} </p> 
-      <p class= "text-primary">Precio: ${product.precio}</p>`);
-    });
-    const nodeMailer = new NodeMailerClass(
-      "Servidor node.js",
-      config.ethereal.EMAIL,
-      `Nuevo Pedido - Cliente: ${req.user.firstName} ${req.user.lastName}, Email: ${req.user.email} `,
-      emailBody
-    );
-    const info = nodeMailer.sendEmail();
-
     const cartId = await cartServices.createCart(cart);
 
-    loggerConsola(info);
+    loggerConsola.error(info);
 
     res.status(201).json(cartId);
   } catch (error) {
-    console.log(error);
+    loggerErrorFile.error(error);
     res.status(500).json({ message: "Ha ocurrido un error" });
   }
 };
@@ -56,14 +41,15 @@ export const getCarrito = async (req, res) => {
       res.json(carritoToRender);
     }
   } catch (error) {
-    loggerErrorFile(error);
+    loggerErrorFile.error(error);
+    
     res.status(500).json({ message: "Hubo un error :" + error });
   }
 };
 export const getCarritoByUserId = async (req, res) => {
   try {
     const idToCompare = req.params.id;
-    console.log(typeof idToCompare);
+
     const carritoToRender = await cartServices.getCartbyUserId(idToCompare);
     if (!carritoToRender)
       res.status(500).json({ error: "Carrito no encontrado" });
@@ -71,7 +57,7 @@ export const getCarritoByUserId = async (req, res) => {
       res.json(carritoToRender.productos);
     }
   } catch (error) {
-    loggerErrorFile(error);
+    loggerErrorFile.error(error);
     res.status(500).json({ message: "Hubo un error :" + error });
   }
 };
@@ -88,7 +74,6 @@ export const postProductInCartById = async (req, res) => {
   const cartIdToCompare = userFromDb._id;
 
   if (idProductToCompare && cartIdToCompare) {
-    console.log("entrando al primer if");
     const newCart = await cartServices.addProductToCart(
       cartIdToCompare,
       idProductToCompare,
@@ -102,7 +87,6 @@ export const postProductInCartById = async (req, res) => {
 
     return res.status(201).json({ cart: newCart });
   } else {
-    console.log("entrando al else");
     res
       .status(500)
       .json({ message: "Ha ocurrido un error en postproductbyid" });
@@ -116,8 +100,6 @@ export const postCartIntoOrder = async (req, res) => {
   const cartIdToCompare = userFromDb._id;
 
   if (cartIdToCompare) {
-    console.log("entrando al primer if");
-
     const cart = await cartServices.getCartbyUserId(cartIdToCompare);
     const user = req.user;
 
@@ -125,16 +107,12 @@ export const postCartIntoOrder = async (req, res) => {
       res
         .status(500)
         .json({ Message: "No se puede crear una orden con un carrito vacío" });
-    }else{
-      
+    } else {
       const order = await orderServices.createOrder(cart, user);
-      
+
       return res.status(201).json({ order: order });
     }
-
-    
   } else {
-    console.log("entrando al else");
     res.status(500).json({ message: "Error al cargar la orden." });
   }
 };

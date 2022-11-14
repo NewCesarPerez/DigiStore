@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import bcrypt from "bcrypt";
-import { loggerConsola } from "../loggerConfig.js";
+import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";
 import userServices from "../services/user.service.js";
 import NodeMailerClass from "../services/nodeMailer.class.js";
 import NodeMailerTemplatesClass from "../utils/nodemailer.templates.js";
@@ -18,11 +18,11 @@ function hashPassword(password) {
 }
 const signupStrategy = new passportLocal.Strategy(
   { passReqToCallback: true },
-  async (req,username, password, done) => {
+  async (req, username, password, done) => {
     try {
       const existingUser = await userServices.getUser({ username: username });
       if (existingUser) done(null, false);
-      console.log(typeof password)
+
       const newUser = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -35,7 +35,7 @@ const signupStrategy = new passportLocal.Strategy(
         telephone: req.body.telephone,
         avatar: req.body.avatar,
       };
-        
+
       //NODEMAILER
       const nodeMailer = new NodeMailerClass(
         "Servidor node.js",
@@ -43,18 +43,16 @@ const signupStrategy = new passportLocal.Strategy(
         "Nuevo registro",
         NodeMailerTemplatesClass.getUserRegTemplate(newUser)
       );
-      
-      console.log("Ethereal email: " + config.ethereal.EMAIL);
+
       const info = await nodeMailer.sendEmail();
-      
 
       loggerConsola.info(info);
       const createdUser = await userServices.createUser(newUser);
-      console.log('user id: '+createdUser.id)
-      const creatCart= await carritoService.createCart(createdUser.id)
+
+      const creatCart = await carritoService.createCart(createdUser.id);
       return done(null, createdUser);
     } catch (err) {
-      console.log(err);
+      loggerErrorFile.error(err);
       return done(err, null);
     }
   }
