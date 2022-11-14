@@ -18,7 +18,7 @@ export class ContenedorMongo {
         return inserted;
       }
     } catch (error) {
-      loggerErrorFile(`Saving error: ${error}`);
+      loggerErrorFile.error(`Saving error: ${error}`);
       throw error;
     }
   }
@@ -27,7 +27,7 @@ export class ContenedorMongo {
     try {
       //Obtenemos los datos
       await this.coleccion.updateOne(
-        { id: id },
+        { _id: id },
         {
           $set: obj,
         }
@@ -38,7 +38,7 @@ export class ContenedorMongo {
       );
       return updatedProduct;
     } catch (error) {
-      loggerErrorFile(`Saving error: ${error}`);
+      loggerErrorFile.error(`Saving error: ${error}`);
       throw error;
     }
   }
@@ -47,7 +47,7 @@ export class ContenedorMongo {
     try {
       await this.coleccion.deleteMany({});
     } catch (error) {
-      loggerErrorFile(error);
+      loggerErrorFile.error(error);
     }
   }
   async readById(number) {
@@ -56,7 +56,7 @@ export class ContenedorMongo {
       if (data === undefined) return null;
       else return data;
     } catch (error) {
-      loggerErrorFile(error);
+      loggerErrorFile.error(error);
     }
   }
 

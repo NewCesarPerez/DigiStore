@@ -529,3 +529,7 @@
     at next (C:\Users\abogc\OneDrive\Desktop\Backend\Desafio_Capas\node_modules\express\lib\router\index.js:280:10)
     at methodOverride (C:\Users\abogc\OneDrive\Desktop\Backend\Desafio_Capas\node_modules\method-override\index.js:79:5)
     at Layer.handle [as handle_request] (C:\Users\abogc\OneDrive\Desktop\Backend\Desafio_Capas\node_modules\express\lib\router\layer.js:95:5)
+[2022-11-13T19:55:22.152] [ERROR] archivoError - Saving error: ValidationError: emailDeUsuario: Path `emailDeUsuario` is required.
+[2022-11-13T19:58:19.545] [ERROR] archivoError - Saving error: ValidationError: emailDeUsuario: Path `emailDeUsuario` is required.
+[2022-11-13T19:59:24.314] [ERROR] archivoError - Saving error: ValidationError: emailDeUsuario: Path `emailDeUsuario` is required.
+[2022-11-13T20:14:36.318] [ERROR] archivoError - Saving error: MongoServerError: Performing an update on the path '_id' would modify the immutable field '_id'

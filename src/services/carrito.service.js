@@ -1,6 +1,7 @@
 
 import DaoFactory from "../daos/factory/dao.factory.js";
 import productDtoClass from "../dto/product.cart.dto.js";
+import orderDtoClass from "../dto/order.dto.js"
 import productService from "./product.service.js";
 
 class CartServices {
@@ -24,6 +25,10 @@ class CartServices {
   async getCartbyUserId(userId) {
     const data = await this.dao.readCartByUserId(userId);
     return data;
+  }
+  async turnCartIntoOrder(cart, user){
+    const orderDto= new orderDtoClass(cart, user)
+    
   }
   async addProductToCart(cartId, idProduct, productQty) {
     const productById = await productService.getProductsById(idProduct);

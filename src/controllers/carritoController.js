@@ -4,7 +4,7 @@ import { createTransport } from "nodemailer";
 import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";
 import NodeMailerClass from "../services/nodeMailer.class.js";
 import userServices from "../services/user.service.js";
-
+import orderServices from "../services/order.service.js"
 //NODEMAILER
 const trasporter = createTransport({
   host: "smtp.ethereal.email",
@@ -14,7 +14,6 @@ const trasporter = createTransport({
     pass: config.ethereal.PASSWORD,
   },
 });
-
 
 //RUTAS - Carrito
 export const postCarrito = async (req, res) => {
@@ -38,9 +37,8 @@ export const postCarrito = async (req, res) => {
 
     const cartId = await cartServices.createCart(cart);
 
-    
     loggerConsola(info);
-   
+
     res.status(201).json(cartId);
   } catch (error) {
     console.log(error);
@@ -110,7 +108,36 @@ export const postProductInCartById = async (req, res) => {
       .json({ message: "Ha ocurrido un error en postproductbyid" });
   }
 };
+export const postCartIntoOrder = async (req, res) => {
+  const authUsername = req.user.username;
 
+  const userFromDb = await userServices.getUser({ username: authUsername });
+
+  const cartIdToCompare = userFromDb._id;
+
+  if (cartIdToCompare) {
+    console.log("entrando al primer if");
+
+    const cart = await cartServices.getCartbyUserId(cartIdToCompare);
+    const user = req.user;
+
+    if (!cart.productos.length) {
+      res
+        .status(500)
+        .json({ Message: "No se puede crear una orden con un carrito vacío" });
+    }else{
+      
+      const order = await orderServices.createOrder(cart, user);
+      
+      return res.status(201).json({ order: order });
+    }
+
+    
+  } else {
+    console.log("entrando al else");
+    res.status(500).json({ message: "Error al cargar la orden." });
+  }
+};
 export const deleteProductFromCartById = async (req, res) => {
   const idProductToCompare = req.params.id_prod;
 

@@ -3,6 +3,7 @@ import ProductoDaoFirebase from "../productos/productoDaoFB.js";
 import CarritoDaoMongo from "../carritos/carritoDaoMDB.js"
 import CarritoDaoFirebase from "../carritos/carritoDaoFB.js";
 import UserDaoMongo from "../usuario/user.dao.MDB.js"
+import OrderDaoMongo from "../order/order.dao.mdb.js";
 import config from "../../config/config.js";
 
 export default class DaoFactory{
@@ -17,6 +18,9 @@ export default class DaoFactory{
         static getUserDao(){
             
             return  UserDaoMongo.getInstance()
+        }
+        static getOrderDao(){
+            return  OrderDaoMongo.getInstance()
         }
 }
 
