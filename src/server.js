@@ -92,7 +92,7 @@ if (isCluster && cluster.isPrimary) {
 
   app.use("/", rutas);
   app.get("*", getNotImplementedRoute);
-  const expressServer = app.listen(config.port, (error) => {
+  const expressServer = app.listen(process.env.port||config.port, (error) => {
     if (error) {
       loggerConsola.error(error);
       loggerErrorFile.error(error);
