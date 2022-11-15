@@ -84,8 +84,8 @@ export const updateProductsById = async (req, res) => {
   try {
     const productId = req.params.id;
     const product = req.body;
-    await productServices.updateProductsById(productId, product);
-    res.sendStatus(201);
+    const data=await productServices.updateProductsById(productId, product);
+    res.status(201).json(data);
   } catch (error) {
     loggerErrorFile.error(error);
     res.status(500).json({ message: "Ha ocurrido un error" });

@@ -1,5 +1,4 @@
 import { Router } from "express";
-import compression from "compression";
 import methodOverride from "method-override";
 import rutasProductos from "./product.route.js"
 import rutasApiProductos from "./product.api.route.js"
@@ -9,7 +8,6 @@ import rutasChat from "./chat.api.route.js"
 
 import {
   getInfo,
-  getData,
   getHome,
   redirectFromRoot,
 } from "../controllers/otherRoutesController.js";
@@ -26,12 +24,12 @@ router.use(methodOverride("_method", {
 router.get("/", redirectFromRoot);
 
 router.get("/info", getInfo);
-router.get("/info-compress", compression(), getInfo);
+
 router.get("/home", checkAuth, getHome);
 router.get("/datos", checkAuth, (req, res) => {
   res.json(req.user);
 });
-router.get("/data", getData);
+
 
 //router products views
 router.use('/productos',checkAuth, rutasProductos)
