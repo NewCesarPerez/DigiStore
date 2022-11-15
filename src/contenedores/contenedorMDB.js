@@ -70,7 +70,7 @@ export class ContenedorMongo {
 
   async readByEmail(email){
     try {
-      const data = await this.coleccion.findOne({ email: email }, { __v: 0 });
+      const data = await this.coleccion.find({ email: email }, { __v: 0 });
       if (data === undefined) return null;
       else return data;
     } catch (error) {

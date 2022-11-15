@@ -10,8 +10,9 @@
 <body>
 
     <h1 class="d-flex justify-content-center my-5"> <%=username%>, Listo para comprar?</h1>
-    <div class="my-5">
-      <a class="btn btn-warningmx-3 d-flex justify-content-center w-25 m-auto" href="/chat">Chat</a>
+    <div class="my-5 d-flex justify-content-center">
+      <a class="btn btn-warning w-25 m-auto" href="/chat">Chat</a>
+      <a class="btn btn-danger w-25 m-auto " href="/usuario/logout">Log out</a>
     </div>
     
 <% if (hasAny) { %>
