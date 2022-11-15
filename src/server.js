@@ -64,7 +64,7 @@ if (isCluster && cluster.isPrimary) {
       rolling: true,
       saveUninitialized: false,
       cookie: {
-        maxAge: config.maxAge,
+        maxAge: Number(config.maxAge),
       },
     })
   );
