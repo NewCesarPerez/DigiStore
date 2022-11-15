@@ -67,7 +67,7 @@ if (isCluster && cluster.isPrimary) {
       mongoUrl: "mongodb+srv://CesarPerezMora:Jumpforce_2022@chproject.fgyalnv.mongodb.net/?retryWrites=true&w=majority",
     }),
 
-    secret: config.session.SECRET,
+    secret: process.env.SECRET||config.session.SECRET,
     resave: false,
     rolling: true,
     saveUninitialized: false,
