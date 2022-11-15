@@ -14,6 +14,7 @@ import loginStrategy from "./strategies/loginStrategy.js";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import userService from "./services/user.service.js";
+import { ConfigurationContext } from "twilio/lib/rest/conversations/v1/configuration.js";
 
 
 const isCluster = config.modo === "CLUSTER";
@@ -63,7 +64,7 @@ if (isCluster && cluster.isPrimary) {
       rolling: true,
       saveUninitialized: false,
       cookie: {
-        maxAge: 480000,
+        maxAge: config.maxAge,
       },
     })
   );

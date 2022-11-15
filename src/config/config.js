@@ -15,7 +15,7 @@ export default {
     PASSWORD:process.env.ETHEREAL_PASSWORD,
     PORT:process.env.ETHEREAL_PORT
     },
-    
+    maxAge:process.env.MAX_AGE,
     port: ARGS.puerto,
     modo:ARGS.modo,
     database:process.env.DATABASE
