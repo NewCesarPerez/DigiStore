@@ -2,7 +2,7 @@ import config from "../config/config.js";
 import mongoose from "mongoose";
 import { loggerErrorFile } from "../loggerConfig.js";
 
-await mongoose.connect(config.mongodb.URI);
+//await mongoose.connect(config.mongodb.URI);
 export class ContenedorMongo {
   constructor(nombreColeccion, esquema) {
     this.Schema = new mongoose.Schema(esquema);
