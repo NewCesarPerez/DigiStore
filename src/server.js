@@ -64,7 +64,7 @@ if (isCluster && cluster.isPrimary) {
   app.use(cookieParser());
   const sessionMiddleware = session({
     store: MongoStore.create({
-      mongoUrl: config.mongodb.URI,
+      mongoUrl: "mongodb+srv://CesarPerezMora:Jumpforce_2022@chproject.fgyalnv.mongodb.net/?retryWrites=true&w=majority",
     }),
 
     secret: config.session.SECRET,
