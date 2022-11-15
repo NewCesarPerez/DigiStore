@@ -2,8 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";
-import config from "../config/config.js";
-import userService from "../services/user.service.js";
+
 import axios from "axios";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

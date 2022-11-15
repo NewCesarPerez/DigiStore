@@ -1,5 +1,4 @@
-//import userModel from "../daos/usuario/user.Dao.js";
-//import { UserDao } from "../daos/index.js"
+
 import DaoFactory from "../daos/factory/dao.factory.js";
 
 
@@ -20,16 +19,9 @@ class UserServices{
     const data=this.dao.create(newUser)
     return data
   }
-  // async getUser(infoToFilter){
-  //   const data = await this.dao.findOne(infoToFilter);
-  //      return data;
-  // }
-  // async createUser(newUser){
-  //   const data=this.dao.create(newUser)
-  //   return data
-  // }
+  
 }
 
-//export default new UserServices(UserDao)
+
 export default new  UserServices(DaoFactory.getUserDao())
 

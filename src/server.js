@@ -14,9 +14,17 @@ import loginStrategy from "./strategies/loginStrategy.js";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import userService from "./services/user.service.js";
+import msgService from "./services/msg.service.js";
+import {socketFunc} from"./utils/socket.js"
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+import { Server as IOServer } from "socket.io";
 import { ConfigurationContext } from "twilio/lib/rest/conversations/v1/configuration.js";
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const isCluster = config.modo === "CLUSTER";
 const Cpus = os.cpus();
 
@@ -49,25 +57,25 @@ if (isCluster && cluster.isPrimary) {
   const app = express();
   app.set("views", "./src/views");
   app.set("view engine", "ejs");
-  app.use("/api/productos", express.static("html/crearProductos.html"));
+  //app.use("/mensajes", express.static("../public/chat.html"));
+  app.use("/mensajes", express.static(path.join(__dirname, ".././src/public")));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
-  app.use(
-    session({
-      store: MongoStore.create({
-        mongoUrl: config.mongodb.URI,
-      }),
+  const sessionMiddleware = session({
+    store: MongoStore.create({
+      mongoUrl: config.mongodb.URI,
+    }),
 
-      secret: config.session.SECRET,
-      resave: false,
-      rolling: true,
-      saveUninitialized: false,
-      cookie: {
-        maxAge: Number(config.maxAge),
-      },
-    })
-  );
+    secret: config.session.SECRET,
+    resave: false,
+    rolling: true,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: Number(config.maxAge),
+    },
+  });
+  app.use(sessionMiddleware);
   conectarDB();
   app.use(passport.initialize());
   app.use(passport.session());
@@ -78,20 +86,28 @@ if (isCluster && cluster.isPrimary) {
   });
 
   passport.deserializeUser(async function (id, done) {
-      const user = await userService.getUserById(id);
+    const user = await userService.getUserById(id);
     done(null, user);
   });
-  
+
   app.use("/", rutas);
   app.get("*", getNotImplementedRoute);
-  app.listen(config.port, (error) => {
+  const expressServer = app.listen(config.port, (error) => {
     if (error) {
       loggerConsola.error(error);
       loggerErrorFile.error(error);
     } else {
+      console.log();
       loggerConsola.info(`
       Servidor conectado al puerto ${config.port}
       Modo: ${config.modo}`);
     }
   });
+  const io = new IOServer(expressServer);
+  const wrap = (middleware) => (socket, next) =>
+    middleware(socket.request, {}, next);
+  io.use(wrap(sessionMiddleware));
+  io.use(wrap(passport.initialize()));
+  io.use(wrap(passport.session()));
+  io.on("connection", socketFunc);
 }

@@ -533,3 +533,12 @@
 [2022-11-13T19:58:19.545] [ERROR] archivoError - Saving error: ValidationError: emailDeUsuario: Path `emailDeUsuario` is required.
 [2022-11-13T19:59:24.314] [ERROR] archivoError - Saving error: ValidationError: emailDeUsuario: Path `emailDeUsuario` is required.
 [2022-11-13T20:14:36.318] [ERROR] archivoError - Saving error: MongoServerError: Performing an update on the path '_id' would modify the immutable field '_id'
+[2022-11-15T09:33:25.480] [ERROR] archivoError - Saving error: ValidationError: date: Path `date` is required.
+[2022-11-15T10:58:52.181] [ERROR] archivoError - Saving error: ValidationError: date: Path `date` is required.
+[2022-11-15T10:59:30.014] [ERROR] archivoError - Saving error: ValidationError: date: Path `date` is required.
+[2022-11-15T11:51:38.067] [ERROR] archivoError - Saving error: ValidationError: date: Path `date` is required.
+[2022-11-15T11:53:28.231] [ERROR] archivoError - Saving error: ValidationError: date: Path `date` is required.
+[2022-11-15T11:58:03.047] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }
+[2022-11-15T12:02:29.312] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }
+[2022-11-15T12:04:27.340] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }
+[2022-11-15T12:06:31.012] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }

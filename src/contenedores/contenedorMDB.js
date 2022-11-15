@@ -22,7 +22,15 @@ export class ContenedorMongo {
       throw error;
     }
   }
-
+  async readAll() {
+    try {
+      const data = await this.coleccion.find({}, { __v: 0 });
+      if (data === undefined) return null;
+      else return data;
+    } catch (error) {
+      loggerErrorFile(error);
+    }
+  }
   async update(id, obj) {
     try {
       //Obtenemos los datos
@@ -60,6 +68,17 @@ export class ContenedorMongo {
     }
   }
 
+  async readByEmail(email){
+    try {
+      const data = await this.coleccion.findOne({ email: email }, { __v: 0 });
+      if (data === undefined) return null;
+      else return data;
+    } catch (error) {
+      loggerErrorFile.error(error);
+    }
+  
+  }
+
   async readCartByUserId(id){
     try{
       const data = await this.coleccion.findOne({ userId: id }, { __v: 0 });
@@ -95,15 +114,7 @@ export class ContenedorMongo {
     }
   }
 
-  async readAll() {
-    try {
-      const data = await this.coleccion.find({}, { __v: 0 });
-      if (data === undefined) return null;
-      else return data;
-    } catch (error) {
-      loggerErrorFile(error);
-    }
-  }
+  
   async deleteById(number) {
     try {
       await this.coleccion.deleteOne({ _id: number });
