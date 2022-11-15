@@ -542,3 +542,14 @@
 [2022-11-15T12:02:29.312] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }
 [2022-11-15T12:04:27.340] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }
 [2022-11-15T12:06:31.012] [ERROR] archivoError - Saving error: MongoServerError: E11000 duplicate key error collection: test.messages index: username_1 dup key: { username: null }
+[2022-11-15T20:18:13.677] [ERROR] archivoError - MongooseError: Can't call `openUri()` on an active connection with different connection strings. Make sure you aren't calling `mongoose.connect()` multiple times. See: https://mongoosejs.com/docs/connections.html#multiple_connections
+    at NativeConnection.Connection.openUri (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\mongoose\lib\connection.js:716:13)
+    at C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\mongoose\lib\index.js:379:10
+    at C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\mongoose\lib\helpers\promiseOrCallback.js:32:5
+    at new Promise (<anonymous>)
+    at promiseOrCallback (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\mongoose\lib\helpers\promiseOrCallback.js:31:10)
+    at Mongoose._promiseOrCallback (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\mongoose\lib\index.js:1224:10)
+    at Mongoose.connect (C:\Users\abogc\OneDrive\Desktop\Backend\ProyectoFinal_DigiStore\node_modules\mongoose\lib\index.js:378:20)
+    at conectarDB (file:///C:/Users/abogc/OneDrive/Desktop/Backend/ProyectoFinal_DigiStore/src/server.js:46:22)
+    at file:///C:/Users/abogc/OneDrive/Desktop/Backend/ProyectoFinal_DigiStore/src/server.js:79:3
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)

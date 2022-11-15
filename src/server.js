@@ -43,7 +43,7 @@ if (isCluster && cluster.isPrimary) {
   const conectarDB = async () => {
     try {
       const URL = config.mongodb.URI;
-      await mongoose.connect(URL, {
+      await mongoose.connect("mongodb+srv://CesarPerezMora:Jumpforce_2022@chproject.fgyalnv.mongodb.net/?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
