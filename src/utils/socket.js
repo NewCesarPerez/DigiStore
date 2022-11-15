@@ -1,8 +1,9 @@
 
+import { loggerConsola } from "../loggerConfig.js";
 import msgService from "../services/msg.service.js";
  
 export const socketFunc=async (socket)=>{
-    console.log(socket.request.user);
+    
     if (!socket.request.isAuthenticated()) {
       return socket.emit(
         "server:error",
@@ -11,14 +12,14 @@ export const socketFunc=async (socket)=>{
     }
     const type = !socket.request.user.admin ? "user" : "admin";
     const email=socket.request.user.email
-    console.log("Se conecto un usuario nuevo");
+    loggerConsola.info("Se conecto un usuario nuevo");
     const messagesLog = await msgService.getChats();
     socket.emit("server:message", messagesLog);
     socket.on("client:message", async (data) => {
-      console.log(data);
+      loggerConsola.info(data);
       await msgService.insertMsg({email ,...data, type });
       const messages = await msgService.getChats();
-      console.log("messages " + messages);
+      loggerConsola.info("messages " + messages);
       socket.emit("server:message", messages);
     });
   };

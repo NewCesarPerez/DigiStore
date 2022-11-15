@@ -16,13 +16,5 @@ export default class NodeMailerTemplates{
          return this.userRegTemplate
     }
 
-    // static getOrderTemplate(product){
-    //     this.OrderTemplate=
-    //     `
-    //     <p class= "text-primary" >Nombre: ${product.nombre}  </p>    
-    //     <p class= "text-primary">Codigo: ${product.codigo} </p> 
-    //     <p class= "text-primary">Precio: ${product.precio}</p>
-    //     `
-    //      return this.OrderTemplate
-    // }
+
 }

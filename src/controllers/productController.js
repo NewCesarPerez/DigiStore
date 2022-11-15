@@ -1,4 +1,4 @@
-import { ProductoDao } from "../daos/index.js";
+
 import path from "path";
 import { fileURLToPath } from "url";
 import { loggerConsola, loggerErrorFile } from "../loggerConfig.js";

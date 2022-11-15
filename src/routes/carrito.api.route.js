@@ -11,7 +11,6 @@ const router = Router();
 
 router.get("/:id_cart", getCarrito);
 router.get("/user/:id", getCarritoByUserId)
-//router.post("/", postCarrito);
 router.post("/comprar", postCartIntoOrder)
 router.post("/:id_prod/producto/", postProductInCartById);
 router.delete("/:id_prod/producto/", deleteProductFromCartById);
