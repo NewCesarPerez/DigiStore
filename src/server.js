@@ -14,6 +14,7 @@ import loginStrategy from "./strategies/loginStrategy.js";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import userService from "./services/user.service.js";
+import {configChatMongo} from './socket/chat.mongo.js'
 
 
 const isCluster = config.modo === "CLUSTER";
@@ -48,7 +49,7 @@ if (isCluster && cluster.isPrimary) {
   const app = express();
   app.set("views", "./src/views");
   app.set("view engine", "ejs");
-  app.use("/api/productos", express.static("html/crearProductos.html"));
+  
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
@@ -82,8 +83,8 @@ if (isCluster && cluster.isPrimary) {
   });
   
   app.use("/", rutas);
-  app.get("*", getNotImplementedRoute);
-  app.listen(config.port, (error) => {
+  //app.get("*", getNotImplementedRoute);
+  const expressServer=app.listen(config.port, (error) => {
     if (error) {
       loggerConsola.error(error);
       loggerErrorFile.error(error);
@@ -93,4 +94,5 @@ if (isCluster && cluster.isPrimary) {
       Modo: ${config.modo}`);
     }
   });
+  configChatMongo(expressServer)
 }

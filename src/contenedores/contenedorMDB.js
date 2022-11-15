@@ -42,7 +42,7 @@ export class ContenedorMongo {
       throw error;
     }
   }
-
+  
   async deleteAll() {
     try {
       await this.coleccion.deleteMany({});
@@ -76,6 +76,15 @@ export class ContenedorMongo {
     else return data;
   }
 
+  async findByEmail(email){
+    try {
+      const data = await this.coleccion.find(email, { __v: 0 });
+      if (data === undefined) return null;
+      else return data;
+    } catch (error) {
+      loggerErrorFile(error);
+    }
+  }
   async findUser(username) {
     try {
       const data = await this.coleccion.findOne(username, { __v: 0 });

@@ -5,6 +5,7 @@ import rutasProductos from "./product.route.js"
 import rutasApiProductos from "./product.api.route.js"
 import rutasCarrito from "./carrito.api.route.js"
 import rutasUsuarios from "./user.route.js"
+import rutasChat from "./chat.route.js"
 
 import {
   getInfo,
@@ -32,6 +33,7 @@ router.get("/datos", checkAuth, (req, res) => {
 });
 router.get("/data", getData);
 
+router.use('/chat', rutasChat)
 //router products views
 router.use('/productos',checkAuth, rutasProductos)
 
