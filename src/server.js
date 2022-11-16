@@ -43,7 +43,7 @@ if (isCluster && cluster.isPrimary) {
   const conectarDB = async () => {
     try {
       const URL = config.mongodb.URI;
-      await mongoose.connect(process.env.MONGO_ATLAS_URL_HEROKU||config.mongodb.URI, {
+      await mongoose.connect(process.env.MONGO_ATLAS_URL_HEROKU||URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
