@@ -2,7 +2,7 @@ import config from "../config/config.js";
 import mongoose from "mongoose";
 import { loggerErrorFile } from "../loggerConfig.js";
 
-//await mongoose.connect("mongodb+srv://CesarPerezMora:Jumpforce_2022@chproject.fgyalnv.mongodb.net/?retryWrites=true&w=majority");
+await mongoose.connect(process.env.MONGO_ATLAS_URL_HEROKU);
 export class ContenedorMongo {
   constructor(nombreColeccion, esquema) {
     this.Schema = new mongoose.Schema(esquema);

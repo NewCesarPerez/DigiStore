@@ -43,7 +43,7 @@ if (isCluster && cluster.isPrimary) {
   const conectarDB = async () => {
     try {
       const URL = config.mongodb.URI;
-      await mongoose.connect("mongodb+srv://CesarPerezMora:Jumpforce_2022@chproject.fgyalnv.mongodb.net/?retryWrites=true&w=majority", {
+      await mongoose.connect(process.env.MONGO_ATLAS_URL_HEROKU||config.mongodb.URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
@@ -64,10 +64,10 @@ if (isCluster && cluster.isPrimary) {
   app.use(cookieParser());
   const sessionMiddleware = session({
     store: MongoStore.create({
-      mongoUrl: "mongodb+srv://CesarPerezMora:Jumpforce_2022@chproject.fgyalnv.mongodb.net/?retryWrites=true&w=majority",
+      mongoUrl: process.env.MONGO_ATLAS_URL_HEROKU||config.mongodb.URI,
     }),
 
-    secret: "coderhouse"||config.session.SECRET,
+    secret: process.env.SECRET_HEROKU||config.session.SECRET,
     resave: false,
     rolling: true,
     saveUninitialized: false,

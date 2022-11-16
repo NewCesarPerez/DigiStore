@@ -7,10 +7,10 @@ class NodeMailerClass {
     constructor(fromValue,toValue, subjectValue, htmlValue){
         this.transporter=nodemailer.createTransport({
             host: 'smtp.ethereal.email',
-              port: config.ethereal.PORT,
+              port: process.env.MAX_AGE_HEROKU||config.ethereal.PORT,
               auth: {
-                  user: config.ethereal.EMAIL,
-                  pass: config.ethereal.PASSWORD
+                  user: process.env.ETHEREAL_EMAIL_HEROKU||config.ethereal.EMAIL,
+                  pass: process.env.ETHEREAL_PASSWORD_HEROKU||config.ethereal.PASSWORD
               }
           })
 
