@@ -8,10 +8,10 @@ import orderServices from "../services/order.service.js";
 //NODEMAILER
 const trasporter = createTransport({
   host: "smtp.ethereal.email",
-  port: config.ethereal.PORT,
+  port: process.env.ETHEREAL_PORT_HEROKU||config.ethereal.PORT,
   auth: {
-    user: config.ethereal.EMAIL,
-    pass: config.ethereal.PASSWORD,
+    user: process.env.ETHEREAL_EMAIL_HEROKU|| config.ethereal.EMAIL,
+    pass: process.env.ETHEREAL_PASSWORD_HEROKU|| config.ethereal.PASSWORD,
   },
 });
 

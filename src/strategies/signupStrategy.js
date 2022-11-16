@@ -39,7 +39,7 @@ const signupStrategy = new passportLocal.Strategy(
       //NODEMAILER
       const nodeMailer = new NodeMailerClass(
         "Servidor node.js",
-        config.ethereal.EMAIL,
+        process.env.ETHEREAL_EMAIL||config.ethereal.EMAIL,
         "Nuevo registro",
         NodeMailerTemplatesClass.getUserRegTemplate(newUser)
       );

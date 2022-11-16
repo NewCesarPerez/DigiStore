@@ -42,9 +42,9 @@ export function redirectFromRoot(req, res) {
       const memoria = JSON.stringify(process.memoryUsage(), null, 4);
       const OperativeInfo = {
         Puerto: ARGS.puerto,
-        NodeMailerEmail:config.ethereal.EMAIL,
-        SessionTime: (config.maxAge/1000)/60,
-        MongoAtlasUri:config.mongodb.URI,
+        NodeMailerEmail:process.env.ETHEREAL_EMAIL_HEROKU||config.ethereal.EMAIL,
+        SessionTime: (process.env.MAX_AGE_HEROKU/1000)/60||(config.maxAge/1000)/60,
+        MongoAtlasUri:process.env.MONGO_ATLAS_URL_HEROKU||config.mongodb.URI,
         Procesadores: cpus.length,
         Pid: process.pid,
         SO: process.platform,
