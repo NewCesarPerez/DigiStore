@@ -72,7 +72,7 @@ if (isCluster && cluster.isPrimary) {
     rolling: true,
     saveUninitialized: false,
     cookie: {
-      maxAge: Number(config.maxAge),
+      maxAge: Number(process.env.MAX_AGE_HEROKU)||Number(config.maxAge),
     },
   });
   app.use(sessionMiddleware);
